@@ -1,0 +1,64 @@
+\documentclass[a4paper,12pt]{article}
+
+%\usepackage[utf8]{inputenc}
+%\usepackage{lipsum}
+\usepackage{amsmath,amsthm}
+\usepackage[english]{babel}
+
+%\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amssymb}
+
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\usepackage{calc}
+\usepackage{rotating}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{fancyhdr}
+%\usepackage{subfigure}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{svg}
+\usepackage{float}
+\usepackage{calc}
+\usepackage{rotating}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{fancyhdr}
+%\usepackage{subfigure} 
+\usepackage{hyperref}
+
+\usepackage[backref=false,
+			style=numeric-comp,
+            sorting=none]{biblatex}
+\bibliography{journals,phd-references}
+
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\graphicspath{{images/}}
+
+
+\begin{document}
+ 
+\begin{align}
+\label{first}
+v_{x}&=\frac{(v_{l}+v_{r})}{2}\\
+\label{second}
+v_{l}&=v_{x}+\omega.d\\
+\label{third}
+v_{r}&=v_{x}-\omega.d\\
+\intertext{using equations \ref{second} and \ref{third}, we get}
+\label{fourth}
+v_{l}-v_{r}&=2\omega.d\\  
+\intertext{and we also know that}
+\frac{v_{r}}{x}&=\frac{v_{l}}{2d+x}\\
+\intertext{which implies,} 
+x&=2d\frac{v_{r}}{(v_{l}-v{r})}\\
+d+x&=d\frac{(v_{l}+v_{r})}{(v_{l}-v_{r})}\\
+\intertext{replacing $d+x$ by $r$ and using \ref{first} and \ref{fourth}}
+r&=\frac{v_{x}}{\omega}
+\end{align}
+\end{document}
