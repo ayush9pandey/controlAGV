@@ -1,0 +1,388 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 2.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{tyler}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Folsom}{F.}%
+     {Tyler~C.}{T.~C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{FTC1}
+  \strng{fullhash}{FTC1}
+  \field{title}{Self-driving Tricycles}
+  \field{journaltitle}{University of Washington}
+  \field{year}{2013}
+\endentry
+
+\entry{own}{inproceedings}{}
+  \true{moreauthor}
+  \name{author}{4}{}{%
+    {{}%
+     {Pandey}{P.}%
+     {Ayush}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Mahajan}{M.}%
+     {Subhamoy}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kosta}{K.}%
+     {Adarsh}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Yadav}{Y.}%
+     {Dhananjay}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{organization}{1}{%
+    {IEEE}%
+  }
+  \strng{namehash}{PA+1}
+  \strng{fullhash}{PAMSKAYD+1}
+  \field{booktitle}{Transportation Electrification Conference (ITEC), 2015 IEEE
+  International}
+  \field{pages}{1\bibrangedash 10}
+  \field{title}{Low cost autonomous navigation and control of a mechanically
+  balanced bicycle with dual locomotion mode}
+  \field{year}{2015}
+\endentry
+
+\entry{mercedes}{article}{}
+  \field{title}{Mercedes F 300 - Concept Cars}
+  \field{journaltitle}{Mercedes-Benz}
+  \field{year}{2016}
+\endentry
+
+\entry{jignesh}{inproceedings}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Sindha}{S.}%
+     {Jignesh}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Chakraborty}{C.}%
+     {Basab}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Chakravarty}{C.}%
+     {Debashish}{D.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{organization}{1}{%
+    {IEEE}%
+  }
+  \strng{namehash}{SJCBCD1}
+  \strng{fullhash}{SJCBCD1}
+  \field{booktitle}{Transportation Electrification Conference (ITEC), 2015 IEEE
+  International}
+  \field{pages}{1\bibrangedash 8}
+  \field{title}{Rigid body modeling of three wheel vehicle to determine the
+  dynamic stability - A practical approach}
+  \field{year}{2015}
+\endentry
+
+\entry{robot1}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Yutaka~Kanayama}{Y.~K.}%
+     {Fumio~Miyazaki}{F.~M.}%
+     {}{}%
+     {Yoshihiko~Kimura}{Y.~K.}}%
+    {{}%
+     {Noguchi}{N.}%
+     {Tetsuo}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{YKYKFMNT1}
+  \strng{fullhash}{YKYKFMNT1}
+  \field{title}{A Stable Tracking Control Method for an Autonomous Mobile
+  Robot}
+  \field{journaltitle}{Robotics and Automation, 1990. Proceedings., 1990 IEEE
+  International Conference on}
+  \field{year}{1990}
+\endentry
+
+\entry{robot2}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Zhao}{Z.}%
+     {Yilin}{Y.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {BeMent}{B.}%
+     {S.L.}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{ZYBS1}
+  \strng{fullhash}{ZYBS1}
+  \field{title}{Kinematics, dynamics and control of wheeled mobile robots}
+  \field{journaltitle}{Robotics and Automation, 1992. Proceedings., 1992 IEEE
+  International Conference on}
+  \field{year}{1992}
+\endentry
+
+\entry{robot3}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Watanabe}{W.}%
+     {K.}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{WK1}
+  \strng{fullhash}{WK1}
+  \field{title}{Control of an omnidirectional mobile robot}
+  \field{journaltitle}{Knowledge-Based Intelligent Electronic Systems, 1998.
+  Proceedings KES '98. 1998 Second International Conference on}
+  \field{year}{1998}
+\endentry
+
+\entry{robot4}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Astrand}{A.}%
+     {Bjorn}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Baerveldt}{B.}%
+     {Albert-Jan}{A.-J.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{ABBAJ1}
+  \strng{fullhash}{ABBAJ1}
+  \field{title}{An Agricultural Mobile Robot with Vision-Based Perception for
+  Mechanical Weed Control}
+  \field{journaltitle}{Autonomous Robots - Springer}
+  \field{year}{2002}
+\endentry
+
+\entry{robot5}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Dadashzadeh}{D.}%
+     {Behnam}{B.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Mahjoob}{M.}%
+     {M.J.}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{DBMM1}
+  \strng{fullhash}{DBMM1}
+  \field{title}{Fuzzy Logic Control vs. Nonlinear P Control of a Three Wheeled
+  Mobile Robot (TWMR)}
+  \field{journaltitle}{Mechatronics and Automation, 2007. ICMA 2007.
+  International Conference on}
+  \field{year}{2007}
+\endentry
+
+\entry{robot6}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Alvin}{A.}%
+     {Brueske~Vern}{B.~V.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{ABV1}
+  \strng{fullhash}{ABV1}
+  \field{title}{Self-propelled, electric, three wheel maintenance cart}
+  \field{journaltitle}{US Patent 3572455 A}
+  \field{year}{1968}
+\endentry
+
+\entry{lavalle}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {LaValle}{L.}%
+     {Steven~M.}{S.~M.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Cambridge University Press}%
+  }
+  \strng{namehash}{LSM1}
+  \strng{fullhash}{LSM1}
+  \field{title}{Planning Algorithms}
+  \field{year}{2006}
+\endentry
+
+\entry{ros-tricycle}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Bader}{B.}%
+     {Markus}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BM1}
+  \strng{fullhash}{BM1}
+  \field{title}{Gazebo ROS Tricycle Drive Simulation}
+  \field{year}{2014}
+\endentry
+
+\entry{murray}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Murray}{M.}%
+     {R~M}{R.~M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{MRM1}
+  \strng{fullhash}{MRM1}
+  \field{title}{Chapter 12, Optimization Based Control}
+  \field{year}{2010}
+\endentry
+
+\entry{manual}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Martinsa}{M.}%
+     {Felipe~N.}{F.~N.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Celestea}{C.}%
+     {Wanderley~C.}{W.~C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Carellib}{C.}%
+     {Ricardo}{R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Filhoa}{F.}%
+     {Mario~Sarcinelli}{M.~S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Filhoa}{F.}%
+     {Teodiano F.~Bastos}{T.~F.~B.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{MFN+1}
+  \strng{fullhash}{MFNCWCCRFMSFTFB1}
+  \field{title}{An adaptive dynamic controller for autonomous mobile robot
+  trajectory tracking}
+  \field{journaltitle}{Control Engineering Practice}
+  \field{year}{2008}
+\endentry
+
+\entry{bldcmodel}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Oguntoyinbo}{O.}%
+     {Oludayo}{O.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{OO1}
+  \strng{fullhash}{OO1}
+  \field{title}{PID Control of Brushless DC Motor and Robot Trajectory Planning
+  and Simulation with MATLAB/Simuling}
+  \field{journaltitle}{KTH Royal : PhD Thesis}
+  \field{year}{2009}
+\endentry
+
+\entry{iv}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Soderstrom}{S.}%
+     {Torsten}{T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Stoica}{S.}%
+     {Petre}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{STSP1}
+  \strng{fullhash}{STSP1}
+  \field{title}{Instrumental variable methods for system identification}
+  \field{journaltitle}{Circuits Systems and Signal Processing}
+  \field{year}{2002}
+\endentry
+
+\entry{ogata}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Ogata}{O.}%
+     {Katsuhiko}{K.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Prentice Hall, 2nd Edition}%
+  }
+  \strng{namehash}{OK1}
+  \strng{fullhash}{OK1}
+  \field{title}{Discrete-time control systems}
+  \field{year}{1987}
+\endentry
+
+\entry{tp-rrt}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Blanco}{B.}%
+     {Jose~Luis}{J.~L.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bellone}{B.}%
+     {Mauro}{M.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gimenez-Fernandez}{G.-F.}%
+     {Antonio}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{BJLBMGFA1}
+  \strng{fullhash}{BJLBMGFA1}
+  \field{title}{TP-Space RRT --- Kinematic Path Planning of Non-Holonomic
+  Any-Shape Vehicles}
+  \field{journaltitle}{International Journal of Advanced Robotic Systems}
+  \field{year}{2015}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput

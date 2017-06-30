@@ -4265,10 +4265,9 @@ f = Fs*(0:(L/2))/L;
 plot(f,P1)
 %title('Single-Sided Amplitude Spectrum of X(t)')
 
-
+plot(f, P1, 'LineWidth', 2);
 %      loglog(f, sqrt(psd_input), 'c',f, sqrt(psd_output_1), 'b--',f, sqrt(psd_output_2), 'g--',  ...
 %          'LineWidth', 3);
-plot(f, P1, 'LineWidth', 2);
     grid on;
-    xlabel('Frequency, Hz', 'FontSize', 24);
+    xlabel('frequency, Hz', 'FontSize', 24);
     ylabel('Amplitude Spectrum', 'FontSize', 24);

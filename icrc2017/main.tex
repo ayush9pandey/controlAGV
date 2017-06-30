@@ -1,0 +1,529 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+%\usepackage{lipsum}
+\usepackage{amsmath,amsthm,mathrsfs}
+\usepackage{textgreek}
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+\usepackage[english]{babel}
+\usepackage{textcomp}
+%\usepackage[T1]{fontenc}
+\usepackage{graphicx,wrapfig}
+\usepackage{amssymb}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\usepackage{calc}
+\usepackage{rotating}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{fancyhdr}
+%\usepackage{subfigure}
+\usepackage{longtable}
+\usepackage{ifluatex}
+\ifluatex
+  \usepackage{pdftexcmds}
+  \makeatletter
+  \let\pdfstrcmp\pdf@strcmp
+  \let\pdffilemoddate\pdf@filemoddate
+  \makeatother
+\fi
+\usepackage{svg}
+%\usepackage{float}
+\usepackage{rotating}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{fancyhdr}
+%\usepackage{subfigure} 
+\usepackage[english]{babel}
+\usepackage[backend=bibtex,
+style=numeric,
+bibencoding=ascii,
+sorting=none
+%style=alphabetic
+%style=reading
+]{biblatex}
+
+\addbibresource{irc}
+% \usepackage[a4paper, margin=1.5in]{geometry}
+\usepackage{pifont}
+\usepackage{xcolor}
+\usepackage{dirtytalk}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+%\usepackage{times}
+%\usepackage[scaled=0.8]{beramono}
+ \renewcommand{\familydefault}{\rmdefault}
+
+\newcommand{\squeezeup}{\vspace{-1.5mm}}
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Modeling and Control of an Autonomous Three Wheeled Mobile Robot with Front Steer}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Ayush Pandey, Siddharth Jha and Debashish Chakravarty}
+\IEEEauthorblockA{Autonomous Ground Vehicle Research Group\\
+Indian Institute of Technology (IIT)\\
+Kharagpur, West Bengal, India - 721302\\
+Email: (ayushpandey, thesidjway, dc)@iitkgp.ac.in}}
+% \and
+% \IEEEauthorblockN{Homer Simpson}
+% \IEEEauthorblockA{Twentieth Century Fox\\
+% Springfield, USA\\
+% Email: homer@thesimpsons.com}
+% \and
+% \IEEEauthorblockN{James Kirk\\ and Montgomery Scott}
+% \IEEEauthorblockA{Starfleet Academy\\
+% San Francisco, California 96678-2391\\
+% Telephone: (800) 555--1212\\
+% Fax: (888) 555--1212}}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+
+\begin{abstract}
+%\boldmath
+Modeling and control strategies for an autonomous three wheeled mobile robot with front wheel steer and front wheel drive have been presented in this paper. Although, three-wheeled vehicles with front wheel steer are commonly used automotives in public transport (especially in Asian countries), the advantages of such a design in navigation and localization of autonomous vehicles are seldom utilized. We present the system model for velocity control and autonomous trajectory control for such a robotic vehicle. Using the obtained model, the velocity control system has been designed in a digital control framework. We propose a novel trajectory control approach for accurate path following to work with the conventional motion planning high level control algorithm. The derived system model and the controllers have been validated using experimental results obtained for the robot vehicle design. Controller performance and robustness issues have also been discussed briefly.
+\end{abstract}
+% IEEEtran.cls defaults to using nonbold math in the Abstract.
+% This preserves the distinction between vectors and scalars. However,
+% if the conference you are submitting to favors bold math in the abstract,
+% then you can use LaTeX's standard command \boldmath at the very start
+% of the abstract to achieve this. Many IEEE journals/conferences frown on
+% math in the abstract anyway.
+
+% no keywords
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+With the rise in research and development of autonomous robots in the past decade, there has been an increased focus on control strategies for the robots to achieve robust and optimal performance. A clear application of the research on autonomous robots is the self-driving car, which has already started to change the commute in many cities all around the world. In the coming years, we are bound to discover more such self-driving vehicles on the roads and not just cars. An example is the research on three-wheeled self-driving trikes \cite{tyler} with an aerodynamic design which could effectively be deployed in the future for shared public transport. Similar is the design of a passively stabilized bicycle \cite{own}. The designs and advantages of these autonomous vehicles are promising, but their autonomous control and stability are still issues that are unresolved. Mercedes-Benz are working on an electric vehicle \cite{mercedes} with a related mechanical design as well. All of these designs are common in the sense that they are front steered and are equaivalent to a three wheel vehicle design. Control and stability are major challenges with such three wheeled vehicles as will be discussed in detail in the next section in detail. \cite{jignesh} and references their in give an account of the study of stability of three wheeled vehicles. This paper focuses on the control aspects for such a vehicle design. \\
+There are certain distinct advantages that can be had with a three-wheeled robot design. The front wheel steering design is quite close in working to the design of cars. The localization and navigation of such three wheeled vehicles is completely different when the drive actuation is also in the front wheel rather than the conventional tricycle robot drive mechanism in the two rear wheels. The robot design considered in this paper is also a front wheel steered and driven type and hence the two rear wheels are free. The two unactuated wheels can be effectively used for accurate localization, which would have been otherwise impossible in a rear wheel driven vehicle. The absence of actuators in the wheels gives way to precise localization which in turn helps in better trajectory following and navigation of the vehicle. Although, the modified mechanical design has advantages in navigation, it poses challenges in modeling and control strategies which haven't been discussed in the existing literature concerned with autonomous robots. This paper aims to bridge this gap by identifying the system model and proposing trajectory and velocity control strategies for a three wheeled mobile robot with front steer and front wheel drive. 
+
+\subsection{Background}
+There has been extensive research on low-level control of autonomous mobile robots (\cite{robot1}, \cite{robot2}). Low-level control strategies for mobile robots (autonomous or otherwise) are largely dependent on the dynamics of the robot. Most common mobile robots today are based on the differential drive model, where the two actuated wheels are used for driving the robot and changing its direction as well. The research on control of such robot vehicles is vast and is not of concern in this paper. However, it is important to note that the control strategies for a differential drive robot are completely different and do not apply to other robot designs such as omnidirectional mobile robots \cite{robot3} or Ackermann drive robots \cite{robot4} which are very similar to modern cars. This paper presents a low-level control model for a new kind of steering geometry, consisting of a three wheeled robot which is both steered and actuated using the front wheel. This type of steering geometry has several advantages (as described later in detail) for the purpose of localization and motion planning. Similar kind of designs have been discussed in \cite{robot5} and \cite{robot6} but the work on modeling and control of such robot designs is still in a nascent stage. Moreover, most high-level planning algorithms \cite{lavalle} are applicable only to differential drive robots and not for three-wheeled robot designs. Although, there are a few dynamical simulations available for tricycle-like robots, such as \cite{ros-tricycle}, they do not propose any motion planning algorithm to generate trajectories for a given waypoint. Also, the control approach for such robots would be different to the three-wheeled design considered in this paper as the tricycle-like robot consider rear wheel drive while the three-wheeled robot design considered in this paper is front wheel driven. We propose a novel trajectory control method in this paper which enables differential drive motion planning algorithms to work with the three-wheeled robotic designs with front steer and drive.\\
+
+\section{Objectives}
+A CAD model of the robot design considered in this paper is shown below. The front wheel is mounted on a steering column which is controlled by a DC servo motor. The two rear wheels are decoupled mechanically and are free to move. For translation, a brushless DC motor has been used in the front wheel itself. The design allows for a more customizable and simple mechanical design because it gets rid of the two motor couplings that would otherwise exist in a rear wheel driven robot, which is usually the case for tricycle-like or differential drive robots. The downside to using a BLDC motor is the high power requirement, but the mechanical robustness and the advantages of this design in autonomous navigation act as compensatory factors. 
+\begin{figure}[htbp]
+ 			  \centering
+ 			  %\includesvg[width=0.4\textwidth]{robot}
+ 			  \def\svgscale{0.25}
+  			  \tiny{
+  			  \input{robot.pdf_tex}}
+ 			  \caption{The three wheeled autonomous mobile robot design with front steer}
+ 			 \label{robot}
+ 		\end{figure}
+For the three-wheeled autonomous mobile robot shown in Fig.(\ref{robot}), the design for the complete low-level control system has been presented in this paper. There are three main coupled subsystems working in the low-level control of the robot viz. velocity control, steering control and trajectory control. To design appropriate control algorithms, the system model has been identified and validated with experimental results. The trajectory control for this robot design is a challenging task because of the uniqueness of the mechanical design as mentioned earlier. Towards the end of this paper, a trajectory control methodology has been proposed and experimental results for the same as well have been presented. 
+\subsection{Velocity Control}
+
+\begin{figure}[htbp]
+ 			  \centering
+% 			  \includesvg[width=0.4\textwidth]{velocity_control}
+ 			  \def\svgscale{0.25}
+  			  \tiny{
+  			  \input{velocity_control.pdf_tex}}
+ 			  \caption{Velocity Control System Block Diagram}
+ 			 \label{veloblock}
+ 		\end{figure}
+The front wheel of the robot drives the robot using a brushless DC motor which provides the required thrust. The BLDC is in an outer closed loop control as shown in the velocity control system block diagram in Fig.(\ref{veloblock}). Approximating the model for the robot in velocity control system by the BLDC motor only, the plant model was identified. A PID controller was designed based on the identified model. The controller implementation and experimental performance analysis have also been considered in the paper.
+\subsection{Trajectory and Steering Control}
+A large class of control problems consist of planning and following a trajectory in the presence of noise and uncertainty \cite{murray}. Trajectories become particularly important in autonomous robotics because the target path to be traversed keeps changing dynamically with time. Hence, the trajectory controller for an autonomous robot has to be more robust and dynamic than that for a manually controlled robot \cite{manual}. For the robot design considered in this paper, the trajectory control is challenging because there are no high-level planning algorithm implementations that exist for such a design. 
+ \begin{figure}[htbp]
+ 			  \centering
+% 			  \includesvg[width=0.4\textwidth]{steering_control}
+ 			  \def\svgscale{0.25}
+  			  \tiny{
+  			  \input{steering_control.pdf_tex}}
+ 			  \caption{Steering Control System Block Diagram}
+ 			 \label{steering}
+ 		\end{figure}	
+The trajectory control interacts with the steering control as shown in Fig.(\ref{trablock}). In this work our objective was to design the trajectory control strategy which feeds the steering control loop. The steering control loop has its own controller whose design is also considered in the paper. The steering control block diagram for the robot is shown in Fig.(\ref{steering}).
+\begin{figure}[htbp]
+
+			  \centering
+%			  \includesvg[width=0.4\textwidth]{trajblock}
+			  \def\svgscale{0.25}
+			  \tiny{
+			  \input{trajblock.pdf_tex}}
+			  \caption{Trajectory Control System Block Diagram}
+			 \label{trablock}
+		\end{figure}
+\section{Model Identification}
+\label{sysid}
+Standard system identification techniques were used to identify the model of the three wheeled mobile robot with front steer. For the velocity control system, as mentioned above, it was assumed that the robot dynamics are primarily due to the BLDC motor which is responsible for the translation. For a BLDC motor as shown in \cite{bldcmodel} and similar other works, a second order model was assumed with unknown parameters. By obtaining a set of input and corresponding output measurements, an instrument variable system identification algorithm was used to obtain the unknown parameters \cite{iv}.
+
+\section{Control Design}
+For response to a step input in velocity control, a controller was designed based on the model identified. A fast rise time is often the most desirable performance characteristic for any autonomous mobile robot. Other than the high bandwidth requirement, the control design should be such that the closed loop system is insensitive to external disturbances which arise due to undulations in the road terrain and other environmental disturbances. The PID controller designed achieves both the objectives. It has been implemented on a digital microprocessor - the PC. A digital control is not only very easy to implement compared to analog control, but also provides the option to change the reference input and controller parameters easily. \\
+For the second order plant model identified $G(s)$, a discrete-time PID controller $D(z)$ was designed from the given performance specifications. A desired rise time of $t_{r}$ was for a step input velocity command to the robot and a phase lag to attenuate the disturbances at high frequency were chosen for the design specifications. In the transform frequency domain, the standard controller equations (\cite{ogata}) were used:
+\begin{align}
+D(w) &= K_{p} + \frac{K_{i}}{w} + K_{d}w\\
+D(j\omega_{w_{1}}) &=  K_{p} + \frac{K_{i}}{j\omega_{w_{1}}} + K_{d}j\omega_{w_{1}}\\
+\intertext{In polar representation}
+D(j\omega_{w_{1}}) &= \left|D\right|\left(\cos(\theta) + \sin(\theta)\right)\\
+\intertext{where $K_{p}$, $K_{i}$ and $K_{d}$ are ideal PID controller constants. At gain crossover frequency, $\omega_{w_{1}}$, we have}
+\left|D\right| &= \frac{1}{\left|G\right|}\\
+\intertext{where $\left|D\right|$ and $\left|G\right|$ are magnitude of the controller and the plant at $\omega_{w_{1}}$. For a given phase lag angle $\theta$, we can use the above equations to write the PID controller parameters as follows}
+\label{Kpequation}
+K_{p} &= \frac{\cos(\theta)}{\left|G\right|}\\
+\label{Kdequation}
+K_{d}\omega_{w_{1}} -\frac{K_{i}}{\omega_{w_{1}}} &= \frac{\sin(\theta)}{\left|G\right|}
+\end{align}
+Now, using Eq.(\ref{Kpequation}) and Eq.(\ref{Kdequation}), the values of the PID controller parameters were calculated, after choosing the value of one of them depending on the desired performance specifications. This control design methodology was used for the mobile robot shown in Fig.(\ref{robot}) and the results have been given in Section (\ref{controlimp}). 
+
+\section{Trajectory control}
+\label{trajectory}
+Consider that the three wheeled mobile robot is traversing on a path with a curvature $\kappa$. The curvature of the path is defined as the inverse of the instantaneous radius of curvature, centered around a hypothetical center of a circle. The center of curvature is similarly defined as the center of a circle which passes through the path at a given point which has the same tangent and curvature at that point on the path.
+The curvature for the robot design in consideration in this paper may be calculated as shown below. (Refer Fig.(\ref{trajgeo})).
+\begin{figure}[htbp]
+
+			  \centering
+%			  \includesvg[width=0.3\textwidth]{differential}
+			  \def\svgscale{0.65}
+			  \tiny{
+			  \input{differential.pdf_tex}}
+			  \caption{Differential drive geometry}
+			 \label{trajgeo}
+		\end{figure}
+\begin{align}
+\label{5}
+V_{L}&=r\times\omega_{L}\\
+\label{6}
+V_{R}&=r\times\omega_{R}
+\end{align}
+where $r$ is the radius of a wheel, $\omega_{L}$ is the left wheel angular velocity and $\omega_{R}$ is the right wheel angular velocity.\\
+The rear wheels follow differential drive kinematics, as they are both free to move in both clockwise and anticlockwise directions. The simplistic differential drive model can be used to calculate the kinematic equations of the robot.
+\begin{align}
+\label{9}
+V_{L}&=V_{x}-\frac d 2 \times\omega \\
+\label{10}
+V_{R}&=V_{x}+\frac d 2 \times\omega\\
+\intertext{where $d$ is the separation between the two wheels, $\omega$ is the instantaneous angular velocity of the robot, assumed anticlockwise about a point midway between the wheels. Adding Eq.(\ref{9}) and Eq.(\ref{10}), we get}
+V_{x}&=\frac{V_{L}+V_{R}}{2}\\
+\intertext{Subtracting Eq.(\ref{10}) from Eq.(\ref{9}), we get}
+\omega &= \frac {V_{L}-V_{R}}{d}
+\end{align}
+\subsection{Curvature estimation}
+By definition, we can write the curvature as follows
+\begin{equation}
+\kappa=\frac 1 R
+\end{equation}
+where $\kappa$ is the curvature of the path and $R$ is the instantaneous radius of curvature. \\
+Assuming the robot to be a rigid body, we can write
+\begin{align}
+\frac {V_{L}} {R-\frac d 2} &= \frac {V_{R}} {R+\frac d 2}\\
+\intertext{Cross multiplying and solving, we get,}
+\frac {V_{R}+V_{L}} {V_{R}-V_{L}} &= \frac {2R} {d}\\
+\intertext{Rearranging terms, we get}
+\frac {V_{L}+V_{R}}{2} \times \frac{1}{\frac{V_{R}-V_{L}}{d} } &= R\\
+\intertext{Using equations (\ref{5}) and (\ref{6}) we can write}
+\label{curve}
+\kappa &= \frac{\omega}{V_{x}}
+\end{align}
+
+Using the relation in Eq.(\ref{curve}), the curvature control was designed. It was implemented as a separate PID control loop in the digital controller as shown in the Fig.(\ref{trablock}). The steering angle of the robot is controlled using the trajectory controller. \\
+\begin{figure}[htbp]
+
+			  \centering
+%			  \includesvg[width=0.3\textwidth]{figuretrig}
+			  \def\svgscale{0.25}
+			  \tiny{
+			  \input{figuretrig.pdf_tex}}
+			  \caption{Robot Geometry for Trajectory Control}
+			 \label{figuretrig}
+		\end{figure}
+If the robot turns to its left at a constant curvature $\kappa$ for a time $T$, then analyzing the motion relative to the left wheel (considering it to be stationary), we can write that the right wheel moves a distance of $\omega \times d \times T$, where $\omega$ is the instantaneous angular velocity of the robot. From the Fig (\ref{figuretrig}), we can write,
+\begin{equation}
+\tan(\theta)= \omega \times T
+\end{equation}
+Hence, the steer angle is proportional to $\omega$ for small values of $\theta$. Using this linearization about small values of $\theta$, we can design the PID controller for the trajectory. Also, since $\kappa$ is proportional to $\omega$ for a constant velocity, the output of the trajectory controller would be the reference steering input angle to the steering angle control loop.\\
+The controller parameters were experimentally tuned. The same module was also used to provide data for several other tasks not directly linked to low-level control, such as localization and Simultaneous Localization And Mapping (SLAM) for a successful autonomous run.
+
+\section{Model Validation}
+Using the system identification method described in Section (\ref{sysid}), the following continuous transfer function model was obtained for the robot velocity control system. It is important to note here that the for the velocity control, the robot translation has been assumed to be affected primarily only by the BLDC motor which provides the required thrust. Also, as mentioned earlier, the BLDC has been assumed to have a second order dynamics. The system identification data was taken about an equilibrium point about which linearization was carried out. Small perturbations about the nominal velocity value were given and the input-output data was collected. Linearization analysis has been presented at a later stage in this paper as well. Although, the robot system model for velocity control was assumed to be dominated by the BLDC motor only, the effects of other links, joints, other wheels, the electronics and the robot body were taken into account while modeling the system. Other than compensating for the gain in the plant model, an important aspect that the robot displayed was a small process delay. This delay was also modeled and we aimed to appropriately compensate for it in the controller design. The transfer function model obtained after incorporating the delay in the system is shown below. 
+\begin{equation}
+\label{tf}
+G(s) = \frac{K(s+2.8)}{(s+0.44)(s+5)} \times \exp(-0.3s)
+\end{equation}
+The identified model was validated using comparisons with the experimental response of the robot to different inputs. The transfer function given in Eq.(\ref{tf}) is when the BLDC motor is running under the load of the whole robot on a road. A similar model was also identified by running the BLDC motor without load. The BLDC model without load was obtained to be consistent with the robot model for velocity control justifying our previous assumption that for velocity control, the system dynamics are majorly governed by the BLDC motor alone, which provides the translation thrust to the robot. To obtain the identified transfer function as shown in Eq.(\ref{tf}), the robot was excited with a step input around a nominal operating point of $1m/s$ speed. A voltage input step command to the BLDC motor was given and the transient output response of the velocity was recorded. For the operating point $(11V, 1m/s)$, the linearized model was obtained. (11 V is the averaged voltage value when the BLDC is given a $21\%$ duty cycle input to its source voltage of 48 V). In the next section, we demonstrate the validity of the linearity assumption and the range of speeds for which the obtained model is valid. 
+\subsection{Linearity}
+\begin{figure}[htbp]
+
+			  \centering
+%			  \includesvg[width=0.4\textwidth]{bldcNL}
+			  \def\svgscale{0.25}
+			  \tiny{
+			  \input{bldcNL.pdf_tex}}
+			  \caption{Nonlinear voltage duty cycle and speed characteristics}
+			 \label{bldcNL}
+		\end{figure}
+For the BLDC motor, the voltage-speed response was obtained experimentally. The resulting motor characteristic is shown in Fig.(\ref{bldcNL}). Clearly, the motor has nonlinear dynamics as the speed saturates after a certain limit. To obtain the linear model given in Eq.(\ref{tf}), linearization was done around the nominal speed of $1m/s$. Since, the model is being used to design the controller which works for the system at different speeds it is important to identify the range for which the robot behaves linearly, which would in effect give the range for which the designed controller would work as expected.
+
+\begin{figure}[htbp]
+
+			  \centering
+%			  \includesvg[width=0.4\textwidth]{sine}
+			  \def\svgscale{0.25}
+			  \tiny{
+			  \input{sine.pdf_tex}}
+			  \caption{Linearity Validation using Fourier analysis, the maximum frequency component corresponds to 0.125 Hz - the input frequency}
+			 \label{sine}
+		\end{figure}
+To verify the superposition theorem to check the linearity range, the robot was excited with a sinusoidal input signal and the output was recorded. Using Fourier transform, the power density of each frequency component of the output response was obtained. This procedure was repeated for different amplitudes of the sinusoidal input signal around the operating point. From this frequency domain analysis, we observed that the linear model is valid for average voltage amplitudes of up to 28V, i.e. a  10V increment about the nominal operating voltage of 18 V. (These are average voltage values, the source voltage is a constant 48 V, under PWM changing duty cycle). The input signal frequency given was 0.125 Hz. The Fig.(\ref{sine}) shows the frequency component amplitudes in the output response. Clearly, the 0.125 Hz frequency has the maximum power, proving the fact that for this increment the linear model holds. This increment in voltage corresponds to $4m/s$ velocity. Hence, we operate our designed controller in this velocity range.    
+
+\subsection{Open Loop Performance}
+To validate the robot model obtained for velocity control system, the open loop performance of the robot using the experimental results was compared with the response as calculated from the model. A comparison is shown in Fig.(\ref{openloop1}),Fig.(\ref{openloop2}) and Fig.(\ref{openloop3}) for two step inputs of different amplitudes and a ramp input. 
+\begin{figure}[htbp]
+
+			  \centering
+%			  \includesvg[width=0.4\textwidth]{steplow}
+			  \def\svgscale{0.25}
+			  \tiny{
+			  \input{steplow.pdf_tex}}
+			  \caption{Model validation - Step input of amplitude 5 V (10 \% duty cycle) above 11 V operating point. Red - Identified model result, Blue - Experimental result}
+			 \label{openloop1}
+		\end{figure}
+	
+\begin{figure}[htbp]
+
+			  \centering
+%			  \includesvg[width=0.4\textwidth]{step1}
+			  \def\svgscale{0.25}
+			  \tiny{
+			  \input{step1.pdf_tex}}
+			  \caption{Model validation - Step input of amplitude 10 V (20 \% duty cycle) above 11 V operating point. Red - Identified model result, Blue - Experimental result}
+			 \label{openloop2}
+		\end{figure}
+		\begin{figure}[htbp]
+
+			  \centering
+%			  \includesvg[width=0.4\textwidth]{ramp}
+			  \def\svgscale{0.25}
+			  \tiny{
+			  \input{ramp.pdf_tex}}
+			  \caption{Model validation - Ramp input. Red - Identified model result, Blue - Experimental result}
+			 \label{openloop3}
+		\end{figure}
+
+Clearly, the model matches the experimental robot data. On statistical analysis of the error between the model and the experimental results, a mean error of less than 10\% was obtained. 
+
+\section{Control design and implementation}
+\label{controlimp}
+A PID controller was designed for velocity control based on the identified system model. To achieve a rise time of $0.5$ seconds and a phase lag of $5^{\circ}$ to attenuate the high frequency noise, we used equations (\ref{Kpequation} and \ref{Kdequation}) to calculate the values for the controller parameters. On choosing the value of $K_{i}$ to achieve the desired lag response, we calculated the values for $K_{p}$  and $K_{d}$ using the equations given above. The discrete-time controller can then be written as shown below.
+\begin{equation}
+D(z) = K_{p} + \frac{K_{i} T }{2}\frac{z+1}{z-1} + \frac{K_{d} (z-1)}{Tz}
+\end{equation}
+The discrete time controller equation was obtained by using bilinear transformation from the transform domain to z-domain for the integrator and the backward difference method for the differentiator to incorporate the finite bandwidth differentiator in the controller. The sampling time for the implemented controller was $0.05$ seconds. Using the PID parameter values and the sampling time, the controller was implemented on a computer (Intel 64 bit microprocessor) in the discrete-time domain. The control input was given to a DAC which provides the input to the BLDC motor in terms of the duty cycle according to the given control input. For system analysis, the effect of this DAC was incorporated by obtaining a zero-order hold equivalent of the continuous-time plant. The closed loop performance was then analyzed in discrete-time domain. The response of the closed loop system to a step input was similar to the experimental closed loop response. The robot performance is shown in Fig.(\ref{xyx}).
+\begin{figure}[htbp]
+
+			  \centering
+%			  \includesvg[width=0.4\textwidth]{xyz}
+			  \def\svgscale{0.25}
+			  \tiny{
+			  \input{xyz.pdf_tex}}
+			  \caption{Closed loop performance of the robot using the designed controller}
+			 \label{xyx}
+		\end{figure}
+
+% Add figure closed loop.
+
+\section{Trajectory Control and Software Implementation}
+Apart from velocity control, the trajectory control of the three wheeled autonomous mobile robot with front steer poses newer challenges which are previously uncovered in the existing literature. This was described in detail in Section (\ref{trajectory}). The trajectory controller was designed for the robot using the method given in curvature estimation section. The controller was implemented in the structure as shown in Fig.(\ref{trablock}) and the performance of the robot was analyzed.\\
+
+%% Add trajcontrol figure
+
+The low level control has been implemented in C$++$ on a ROS based environment. The discrete-time PID loops run at a constant loop rate of $20Hz$. The command signal is sent using serial communication to a microcontroller (Arduino Due) and a programmable motor driver (Roboteq MDC2230) in order to control the motors (the steering and the BLDC for translation). The microcontroller is also responsible for collection of encoder data for the low level control and also other purposes like odometry which is used in localization of the autonomous robot. The constraint for this particular type of design model is that it cannot turn at an arbitrary angle or rotate in its own position (i.e. a zero radius turn).\\
+Since, most  available high level planners are made for differential drive robots that assume that both the aforementioned feats are possible. Planners such as TP-RRT \cite{tp-rrt} have been implemented for non-holonomic designs like that of a car and may be used. However, the robot design presented in this paper lies between the holonomic differential drive and the non-holonomic car-like design. Hence, there is no existing high-level motion planning implementation that would work with the design in consideration. In order to counter this situation, the high level planner was modified to assume that our robot is differential driven but with added certain constraints for this robot design which is a non-holonomic tricycle with free rear wheels. For example, maximum radius of curvature, maximum angular velocity and a maximum linear velocity were a few constraints that were limited to modify the existing planner implementation. After addition of these and other required constraints, the high level planner decides the best possible path and sends the target linear velocity and angular velocity to the low level control node. The TP-RRT planner is used for this purpose as it works for non-holonomic robot designs such as ours. It is implemented using Mobile Robot Programming Toolkit (MRPT). To make this planner work for the robot design in consideration, a trajectory controller has been implemented as described previously which leads to accurate trajectory following for this design as well (even though the motion planner has not been implemented for this design). 
+\section{Future Work}
+The work on autonomous three wheeled robots has a long way to go before such vehicles are realized onto the roads because of many control and stability related challenges. We described a particular kind of three wheeled robot mechanical design which has various advantages in autonomous navigation and localization, but is difficult to properly control on a trajectory. A novel trajectory control method was proposed for the robot design and the velocity controller was also designed in the low-level control system by identifying the robot translation system model. This work could be carried forward in various directions such as design of controllers using the robust and optimal control theoretic techniques so that the robot performs under various uncertainties while consuming as less battery power as possible. It would also be interesting to design adaptive PID controllers for which the parameters change according to the environment conditions. Although, there has been a significant amount of research on adaptive and fuzzy PID control designs, but extending such results to this robot design would be an interesting problem to consider given the different challenges that this front wheel driven \& steered design poses.  
+% % no \IEEEPARstart
+% This demo file is intended to serve as a ``starter file''
+% for IEEE conference papers produced under \LaTeX\ using
+% IEEEtran.cls version 1.7 and later.
+% % You must have at least 2 lines in the paragraph with the drop letter
+% % (should never be an issue)
+% I wish you the best of success.0
+
+% \hfill mds
+ 
+% \hfill January 11, 2007
+
+
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation Results}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command, the
+% \label for the overall figure must come after \caption.
+% \hfil must be used as a separator to get equal spacing.
+% The subfigure.sty package works much the same way, except \subfigure is
+% used instead of \subfloat.
+%
+%\begin{figure*}[!t]
+%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
+%\label{fig_second_case}}}
+%\caption{Simulation results}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+
+
+% An example of a floating table. Note that, for IEEE style tables, the 
+% \caption command should come BEFORE the table. Table text will default to
+% \footnotesize as IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that IEEE does not put floats in the very first column - or typically
+% anywhere on the first page for that matter. Also, in-text middle ("here")
+% positioning is not used. Most IEEE journals/conferences use top floats
+% exclusively. Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the \fnbelowfloat
+% command of the stfloats package.
+
+
+
+\section{Conclusion}
+We identified a linearized model for a three wheeled autonomous mobile robot. The robot design considered in the paper is a front wheel steer design. The model was validated by comparing the derived model response with the experimental results of the autonomous robot. The linearity of the model was also investigated thoroughly and the range of linearity was calculated by analyzing the experimental data. A PID controller was designed based on the identified model and was implemented in a discrete-time controller hardware. The trajectory control problem was touched upon briefly in this paper and some promising initial results were demonstrated. A high level planner designed for holonomic differential drive robots only, when used with the designed trajectory controller for the three wheeled robot design followed the desired trajectory.
+
+
+% conference papers do not normally have an appendix
+
+
+% use section* for acknowledgement
+\section*{Acknowledgment}
+
+
+The authors would like to thank all the members of the Autonomous Ground Vehicle (AGV) research group, IIT Kharagpur for their continuous support in our research work. We would like to extend special gratitude towards Jignesh Sindha (PhD research scholar in the group) for his help with the robot mechanical design. We would also like to thank Gopabandhu Hota, Yash Gaurkar and Aakash Yadav for letting us use their velocity measurement sensor to obtain the experimental results. We are grateful to Sponsored Research and Industrial Consultancy (SRIC), IIT Kharagpur for funding the research in our group.
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+\printbibliography
+
+
+% that's all folks
+\end{document}
+
+
